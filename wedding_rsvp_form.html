@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>RSVP to Our Wedding</h1>
+    <form id="rsvpForm">
+        <input type="text" name="prefix" placeholder="Prefix" required>
+        <input type="text" name="firstName" placeholder="First Name" required>
+        <input type="text" name="middleName" placeholder="Middle Name">
+        <input type="text" name="lastName" placeholder="Last Name" required>
+        <input type="text" name="facebookName" placeholder="Facebook Name">
+        <input type="tel" name="contactNumber" placeholder="Contact Number" required>
+        <select name="attending" required>
+            <option value="">Will you attend?</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+        <textarea name="comment" placeholder="Comments"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('rsvpForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('https://script.google.com/macros/s/AKfycbxVIwKgcpAB_jzS2IY05KJAwLi66cPrVJfETSbuxjSgL-jcaawrOg6h36qsc7l8oupdoQ/exec', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('RSVP submitted successfully!');
+                this.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your RSVP.');
+            });
+        });
+    </script>
+
+</body>
+</html>
